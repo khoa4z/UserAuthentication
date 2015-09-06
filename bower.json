@@ -1,0 +1,39 @@
+{
+  "name": "UserAuthentication",
+  "version": "0.0.1",
+  "authors": [
+    "Ken Nguyen <kennguyen@live.com>"
+  ],
+  "description": "Authentication using angularJS, nodeJS, express Framework, mongodb",
+  "main": "./server/server.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "Authentication",
+    "AngularJS",
+    "nodeJS",
+    "ExpressJS",
+    "mongodb",
+    "PassportJS"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "angular-ui-router": "~0.2.15",
+    "angular-resource": "~1.4.3",
+    "angular-messages": "~1.4.3",
+    "ng-lodash": "~0.2.3",
+    "fontawesome": "~4.4.0"
+  }
+}

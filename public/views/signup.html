@@ -1,0 +1,123 @@
+<div class="page-header">
+    <h1>Sign up
+        <small>Join us</small>
+    </h1>
+</div>
+
+<div class="col-sm-10 col-sm-offset-1">
+    <form name="userForm" class="form-horizontal" role="form" ng-submit="submitForm(userForm.$valid)">
+        <div class="panel panel-default">
+            <div class="panel-heading">Creating an account</div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" ng-model="formData.email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        <p ng-show="userForm.email.$invalid && userForm.email.$dirty" class="text-danger">Email is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : userForm.userName.$invalid && !userForm.userName.$pristine }">
+                    <label for="userName" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="formData.userName" class="form-control" id="userName" name="userName" placeholder="Username" required>
+                        <p ng-show="userForm.userName.$invalid && userForm.userName.$dirty" class="text-danger">userName is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password1" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input type="password" ng-model="formData.password1" class="form-control" id="password1" name="password1" placeholder="Password" required>
+                            <span class="input-group-btn"  onmouseover="mouseoverPass1();" onmouseout="mouseoutPass1();">
+                                <button  class="btn btn-default" style="border-radius:0px 0px 0px 0px; ">
+                                    <span class="fa fa-eye fa-lg"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <p ng-show="userForm.password1.$invalid && userForm.password1.$dirty" class="text-danger">Password is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password2" class="col-sm-2 control-label">Repeat Password</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input type="password" ng-model="formData.password2" class="form-control" id="password2" name="password2" placeholder="Password" required>
+                            <span class="input-group-btn"  onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();">
+                                <button  class="btn btn-default" style="border-radius:0px 0px 0px 0px; ">
+                                    <span class="fa fa-eye fa-lg"></span>
+                                </button>
+                            </span>
+                        </div>
+                            <p ng-show="userForm.password2.$invalid && userForm.password2.$dirty" class="text-danger">Password is required.</p>
+                            <p ng-show="userForm.password1.$dirty && userForm.password2.$dirty && !checkPassword(formData.password1,formData.password2) && formData.password2.length " class="text-danger">Passwords don't match. Try again</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="well" style="margin-bottom:0;">
+                            <h3 style="margin-top:0;margin-bottom:0;">Agreement: <small><a href="" data-toggle="modal" data-target="#agreementModal">LINK</a></small></h3>
+                        </div>
+
+                        <!--<div class="checkbox">-->
+                        <!--<label>-->
+                        <!--<input type="checkbox" ng-model="formData.terms" aria-label="Agree to terms" required> Agree to terms.-->
+                        <!--</label>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit"  class="btn btn-primary" ng-disabled="userForm.$invalid">Sign up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="agreementModal" tabindex="-1" aria-labelledby="agreementModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Agreement</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    {{agreement}}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    Please check your email.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Log In</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

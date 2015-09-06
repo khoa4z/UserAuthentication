@@ -1,0 +1,28 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">Athen</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ng-class='{ active: PAGE === "home"}'><a href="/home"><i class="icon-home icon-white"></i>Home</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="!_isLoggedIn"><a ui-sref="register">Sign up</a></li>
+                <li ng-if="!_isLoggedIn"><a ui-sref="signin">Sign in</a></li>
+
+                <li ng-if="_isLoggedIn"><a hreg=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{getName()}}!</a></li>
+                <li ng-if="_isLoggedIn"><a ui-sref="signout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+            </ul>
+
+        </div><!-- .collapse -->
+    </div> <!-- .container-fluid -->
+</nav>

@@ -1,0 +1,41 @@
+<!doctype HTML>
+<html ng-app="AthenApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authentication Template</title>
+
+    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../bower_components/fontawesome/css/font-awesome.min.css"/>
+</head>
+<body ng-controller="AuthorizationController">
+    <!--Navigational bar-->
+    <div ng-include src="'views/header.html'"></div>
+
+    <!--Body-->
+    <div class="container">
+        <div class="row">
+            <main class="col-xs-12">
+                <ui-view></ui-view>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div ng-include src="'views/footer.html'"></div>
+
+    <!-- JS -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.min.js"></script>
+    <script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="../bower_components/ng-lodash/build/ng-lodash.js"></script>
+
+    <!-- App JS -->
+    <script src="js/app.js"> </script>
+</body>
+</html>

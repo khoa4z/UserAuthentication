@@ -1,0 +1,31 @@
+{
+  "name": "user-authentication",
+  "version": "1.0.0",
+  "description": "package json for npm",
+  "main": "server/server.js",
+//  "scripts": {
+//    "start": "nodemon server/server.js"
+//  },
+  "author": "Ken",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.13.3",
+    "cookie-parser": "^1.3.5",
+    "express": "^4.13.3",
+    "express-jwt": "^3.0.1",
+    "express-session": "^1.11.3",
+    "express-validator": "^2.17.1",
+    "jsonwebtoken": "^5.0.5",
+    "lodash": "^3.10.1",
+    "method-override": "^2.3.5",
+    "mongodb": "^2.0.40",
+    "passport": "^0.3.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.11.14",
+    "q": "^1.4.1",
+    "session": "^0.1.0",
+    "winston": "^1.0.1"
+  }
+}
