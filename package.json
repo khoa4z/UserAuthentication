@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "package json for npm",
   "main": "server/server.js",
-//  "scripts": {
-//    "start": "nodemon server/server.js"
-//  },
+  "scripts": {
+    "start": "nodemon server/server.js"
+  },
   "author": "Ken",
   "license": "ISC",
   "dependencies": {
@@ -20,6 +20,7 @@
     "lodash": "^3.10.1",
     "method-override": "^2.3.5",
     "mongodb": "^2.0.40",
+    "nodemailer": "0.7.1",
     "passport": "^0.3.0",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",

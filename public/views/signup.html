@@ -15,14 +15,16 @@
                     <div class="col-sm-10">
                         <input type="email" ng-model="formData.email" class="form-control" id="email" name="email" placeholder="Email" required>
                         <p ng-show="userForm.email.$invalid && userForm.email.$dirty" class="text-danger">Email is required.</p>
+                        <p ng-show="emailWarning" class="text-danger">{{emailWarning}}</p>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.userName.$invalid && !userForm.userName.$pristine }">
-                    <label for="userName" class="col-sm-2 control-label">Name</label>
+                    <label for="userName" class="col-sm-2 control-label">User Name</label>
                     <div class="col-sm-10">
                         <input type="text" ng-model="formData.userName" class="form-control" id="userName" name="userName" placeholder="Username" required>
                         <p ng-show="userForm.userName.$invalid && userForm.userName.$dirty" class="text-danger">userName is required.</p>
+                        <p ng-show="userNameWarning" class="text-danger">{{userNameWarning}}</p>
                     </div>
                 </div>
 

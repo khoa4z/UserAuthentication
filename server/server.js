@@ -3,7 +3,7 @@
 var express = require('express'),
     path    = require('path'),
     log		= require('winston').loggers.get('app:server'),
-    passport= require('passport'),
+    //passport= require('passport'),
     app     = express();
 
 var cookieParser		= require('cookie-parser');
@@ -20,7 +20,7 @@ var config  = {
 };
 
 // Configure passport, i.e. create login stratagies
-require('./passport-local')(passport);
+//require('./passport-local')(passport);
 
 app.use(express.static(path.join(__dirname + '/../')));
 app.use(express.static('../public/..'));
@@ -34,17 +34,18 @@ app.use(methodOverride());
 //app.use(flash()); // use connect-flash for flash messages stored in session
 
 /*set-up for passport*/
-app.use(session({secret: 'iamalibrary', saveUninitialized: true, resave: true}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-var local = passport.authenticate('local');
+//app.use(session({secret: 'iamalibrary', saveUninitialized: true, resave: true}));
+//app.use(passport.initialize());
+//app.use(passport.session());
+//
+//var local = passport.authenticate('local');
 //console.log(local);
 
 //@todo: Recheck this
 var router = express.Router();
 var loginRouter = express.Router();
-require('./loginRoutes')(loginRouter, local, jwt);
+//require('./loginRoutes')(loginRouter, local, jwt);
+require('./loginRoutes')(loginRouter, jwt);
 
 app.use(loginRouter);
 

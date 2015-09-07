@@ -31,7 +31,7 @@
                     <p ng-show="userForm.password.$invalid && userForm.password.$dirty" class="text-danger">Password is required.</p>
                     <br/>
                     <label style="margin-bottom: 18px;">
-                        <input type="checkbox" ng-click="rememberMe()" ng-model="remember"> Remember me
+                        <input type="checkbox" ng-model="remember"> Remember me
                     </label>
                     <br/>
                     <p class="text-info"><a ui-sref="register"> <span class="fa fa-plus fa-lg"></span> Create an Account</a></p>
@@ -41,4 +41,5 @@
             <!--<input type="submit" value="Log In"/>-->
             <!--<p class="help-block"><a href="#">Trouble logging in?</a></p>-->
         </form>
+        <p class="text-danger">{{warning}}</p>
     </div>
