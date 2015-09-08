@@ -45,3 +45,19 @@ app.factory('$forget', function() {
     }
 });
 
+app.factory('Mission', ['$resource', function ($resource) {
+    var map = function (token) {
+        return {
+            query:  {method: 'GET',     headers: {'Authorization': 'Bearer ' + token}, isArray: false},
+            get:    {method: 'GET',     headers: {'Authorization': 'Bearer ' + token}},
+            save:   {method: 'POST',    headers: {'Authorization': 'Bearer ' + token}},
+            remove: {method: 'DELETE',  headers: {'Authorization': 'Bearer ' + token}},
+            delete: {method: 'DELETE',  headers: {'Authorization': 'Bearer ' + token}}
+        };
+    };
+    return {
+        createRestrictedResource: function (token) {
+            return $resource('/api/v1/mission/:id', null, map(token));
+        }
+    }
+}]);

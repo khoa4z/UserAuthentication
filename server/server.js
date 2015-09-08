@@ -57,22 +57,32 @@ if ('development' == app.get('env')) {
     app.use(errorHandler());
 }
 
-//app.options('*', cors());
-app.post('/login', security.authenticate);
-app.get('/login/:id/:email', security.emailAuthenticate);
-app.post('/user', user.createUser);
-
-app.get('*', function (req, res) {
-    //@todo: check session from here
-    res.sendFile(path.join('/public/main.html'), {"root": "../"});
-});
-
 //app.get('/', routes.index);
 // Authorize API endpoints using JWT tokens
 app.use('/api/v1/', expressJwt({secret: 'IamQ'}), function(req, res, next){
     console.log('Authenticating');
     next();
 });
+
+
+//app.options('*', cors());
+app.post('/login', security.authenticate);
+app.get('/login/:id/:email', security.emailAuthenticate);
+app.post('/user', user.createUser);
+
+app.get('/api/v1/mission/:id', function(req, res){
+   console.log("inside get");
+    res.send('200');
+});
+
+
+app.get('*', function (req, res) {
+    //@todo: check session from here
+    res.sendFile(path.join('/public/main.html'), {"root": "../"});
+});
+
+
+
 
 mongo.init(function(error){
     if(error)

@@ -165,10 +165,14 @@ app.controller('LogOutCtrl', function($scope, $rootScope, $state){
     });
 });
 
-app.controller('ApolloCtrl', function($scope){
+app.controller('ApolloCtrl', function($scope, Mission, $window){
     //@todo: test with Token
     $scope.clickTest = function(){
-
+        console.log('click');
+        var _Mission = Mission.createRestrictedResource($window.sessionStorage.token);
+        $scope.missions = _Mission.query(function (items) {
+            console.log('DEBUG:', items);
+        });
     };
 });
 

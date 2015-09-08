@@ -40,7 +40,7 @@ app.config([ '$stateProvider', '$urlRouterProvider','$locationProvider', functio
         .state('apollo',{
             url:'/apollo',
             templateUrl: '/views/apollo.html',
-            //controller:'LogInCtrl',
+            controller:'ApolloCtrl',
 /*-------*/ data: {authenticate: true}
         })
         .state('signout', {
