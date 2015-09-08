@@ -9,10 +9,12 @@ var path = require('path');
 var logger = require('morgan');
 var methodOverride = require('method-override');
 var session = require('express-session');
+var cookieParser		= require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer = require('multer');
+//var multer = require('multer');
 var errorHandler = require('errorhandler');
 var log		= require('winston').loggers.get('app:server');
+var expressValidator 	= require('express-validator');
 
 //var cors = require('cors');
 
@@ -29,9 +31,11 @@ var config  = {
     "ip"    : "127.0.0.1"
 };
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: true})).use(bodyParser.json());
 app.use(methodOverride());
+app.use(cookieParser());
+app.use(expressValidator());
 
 //set up session
 app.use(session({ resave: true,
@@ -43,11 +47,6 @@ app.use(session({ resave: true,
 app.use(express.static(path.join(__dirname + '/../')));
 app.use(express.static('../public/..'));
 app.use(express.static(path.join(__dirname + '/../public/'))); // static serving all files in public
-app.get('*', function (req, res) {
-    //@todo: check session from here
-    console.log('in *');
-    res.sendFile(path.join('/public/main.html'), {"root": "../"});
-});
 
 var options = { redirect: false };
 //app.use(cors()); //providing a Connect/Express middleware that can be used to enable CORS with various options.
@@ -60,7 +59,13 @@ if ('development' == app.get('env')) {
 
 //app.options('*', cors());
 app.post('/login', security.authenticate);
+app.get('/login/:id/:email', security.emailAuthenticate);
 app.post('/user', user.createUser);
+
+app.get('*', function (req, res) {
+    //@todo: check session from here
+    res.sendFile(path.join('/public/main.html'), {"root": "../"});
+});
 
 //app.get('/', routes.index);
 // Authorize API endpoints using JWT tokens

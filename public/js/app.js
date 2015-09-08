@@ -31,6 +31,12 @@ app.config([ '$stateProvider', '$urlRouterProvider','$locationProvider', functio
             controller:'LogInCtrl',
             data: {authenticate: false}
         })
+        .state('authenticated',{
+            url:'/authenticated',
+            templateUrl: '/views/authenticated.html',
+            //controller:'LogInCtrl',
+            data: {authenticate: false}
+        })
         .state('apollo',{
             url:'/apollo',
             templateUrl: '/views/apollo.html',
@@ -53,7 +59,7 @@ app.run(function ($rootScope, $state, $window) {
         $state.transitionTo("signin");
             event.preventDefault();
         } // Avoid pages
-        var statesToAvoid = ['signin','register'];
+        var statesToAvoid = ['signin','register','authenticated'];
         if(statesToAvoid.indexOf(toState.name)>=0 && $window.sessionStorage.token !== undefined){
             $state.go("apollo");
             event.preventDefault();

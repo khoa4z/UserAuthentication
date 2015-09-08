@@ -14,8 +14,8 @@ app.controller('LogInCtrl', function($scope, $rootScope, $state, Login, $window,
     console.log($state.current.name);
 
     $scope.formData = {
-        email       :'kennguyen@live.com',
-        password    :'456'
+        email       :'',
+        password    :''
     };
 
     $scope.remember = false;
@@ -59,8 +59,9 @@ app.controller('LogInCtrl', function($scope, $rootScope, $state, Login, $window,
     };
 });
 
-app.controller('AuthorizationController',  function ($scope, $rootScope, $window, _, $state, $timeout) {
+app.controller('AuthorizationController',  function ($scope, $rootScope, $window, lodash, $state, $timeout) {
     //$scope.timeInMs = 0;
+var _ = lodash;
 
     var countUp = function() {
         if ($rootScope.timeInMs > -1) {
@@ -165,5 +166,50 @@ app.controller('LogOutCtrl', function($scope, $rootScope, $state){
 });
 
 app.controller('ApolloCtrl', function($scope){
-    //@todo: test
+    //@todo: test with Token
+    $scope.clickTest = function(){
+
+    };
+});
+
+app.controller('SignUpCtrl', function($scope, $rootScope, $state, UserUnauth, $window){
+    $scope.formData = {
+        email   :   '',
+        userName:   '',
+        password1:  '',
+        password2:  ''
+    };
+    $scope.agreement = 'Lucas ipsum dolor sit amet skywalker leia solo solo yavin darth jinn gonk yoda chewbacca. Lando skywalker padmé leia grievous calrissian antilles. Owen maul wedge qui-gonn hutt antilles calrissian. K-3po calrissian darth moff coruscant jade. Lobot coruscant mustafar calrissian kenobi mandalore yavin. Dooku thrawn antilles utapau kit jade hutt dooku antilles. Kessel solo grievous antilles c-3po skywalker mon moff. Yoda watto hutt thrawn kit darth. R2-d2 kenobi maul alderaan yoda dooku. Jabba lars gonk darth c-3p0 mothma coruscant c-3po ewok.';
+    var _User = UserUnauth.createRestrictedResource($window.sessionStorage.token);
+
+    $scope.submitForm = function (isValid) {
+        $scope.emailWarning = '';
+        $scope.userNameWarning = '';
+        if (isValid && $scope.checkPassword($scope.formData.password1, $scope.formData.password2)) {
+            _User.save($scope.formData, function (data) {
+                console.log('Saved user!');
+                $('#emailModal').modal('show');
+            }, function (err) {
+                console.log('There was an error, email and or username may already exist.', err);
+                if(err.data === 'Same email'){
+                    console.log("same email");
+                    $scope.emailWarning = "This email is used. Please try another one.";
+                }
+                if(err.data === 'Same userName'){
+                    console.log("same userName");
+                    $scope.userNameWarning = "This user name is used. Please try another one.";
+                }
+            });
+        } else {
+            console.log('DEBUG: Invalid form data.');
+        }
+    };
+
+    $scope.checkPassword = function (p1, p2) {
+        return p1 === p2;
+    };
+
+    $('#emailModal').on('hidden.bs.modal', function () {
+        $state.go('signin');
+    });
 });

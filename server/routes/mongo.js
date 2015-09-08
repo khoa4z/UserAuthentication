@@ -11,7 +11,6 @@ var db, _accountCollection;
 module.exports.init = function(callback){
     MongoClient.connect( dburl.url[0], function(err, database) {
         if(err){
-            console.log(err);
             throw err;
         }
         db = database;

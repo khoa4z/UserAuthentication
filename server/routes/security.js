@@ -41,7 +41,7 @@ exports.authenticate = function(req, res) {
 						email   : doc.email,
 						iat     : doc.iat,
 						exp     : doc.exp,
-						expiration: 1
+						expiration: 60*72
 					};
 
 					res.send({
@@ -61,41 +61,28 @@ exports.authenticate = function(req, res) {
 	});
 };
 
-
-
-
-function generateHash (_s){
-	return bcrypt.hashSync(_s, bcrypt.genSaltSync(10), null);
-}
+exports.emailAuthenticate = function(req, res){
+	console.log( req.params.id);
+	console.log( req.params.email);
+	var email = req.params.email;
+	mongo.accountCollection.findAndModify(
+		{ _id : new ObjectID( req.params.id) },
+		[],
+		{ $set: { 'auth': true} },
+		{
+			new:true,
+			upsert:true,
+			w:1
+		}, function(err, doc) {
+			if (err){
+				res.status(400).send("not okay");
+			}else{
+				res.writeHead(302, {'Location': 'http://localhost:3007/authenticated'});
+				res.end();
+			}
+		});
+};
 
 function verifyPassword(password, hashedPassword ){
 	return bcrypt.compareSync(password, hashedPassword);
-}
-
-function sendVerificationEmail(id,emailTo){
-	//host=req.get('host');
-	var Link="http://localhost:3007"+"/login/"+id+"/"+emailTo;
-
-	var smtpTransport = nodemailer.createTransport("SMTP",{
-		service: "Gmail",
-		auth: {
-			user: "kentesting23@gmail.com",
-			pass: "oneTwo12"
-		}
-	});
-
-	var mailOptions={
-		to : emailTo,
-		subject : "Please confirm your Email account",
-		html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+Link+">Click here to verify</a>"
-	}
-
-	smtpTransport.sendMail(mailOptions, function(error, response){
-		if(error){
-			console.log(error);
-		}else{
-			console.log("Message sent: " + response.message);
-		}
-		smtpTransport.close(); // shut down the connection pool, no more messages
-	});
 }

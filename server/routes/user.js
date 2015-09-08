@@ -7,21 +7,11 @@ var MongoClient = require('mongodb').MongoClient,
 	ObjectID = require('mongodb').ObjectID,
 	Q = require('q');
 
-var dburl = { "url" : ["mongodb://123:456@ds059692.mongolab.com:59692/google"] };
 var jwt = require('jsonwebtoken');
 
 var secret = "IamQ";
-var db, accountCollection;
 
-MongoClient.connect( dburl.url[0], function(err, database) {
-	if(err){
-		console.log(err);
-		throw err;
-	}
-	db = database;
-	accountCollection = db.collection('accs');
-});
-
+var mongo = require('./mongo.js');
 
 exports.list = function(req, res){
   res.send("respond with a resource");
@@ -69,14 +59,14 @@ exports.createUser = function(req, res) {
 		auth            :   false
 	}
 
-	accountCollection.findOne({
+	mongo.accountCollection.findOne({
 			$or: [
 				{ email:_a.email },
 				{ userName:_a.userName }
 			]},
 		function(err, doc){
 			if (err || !doc) {
-				accountCollection.insert(_a, function(err, data){
+				mongo.accountCollection.insert(_a, function(err, data){
 					if(data){
 						console.log("Put to Database");
 						res.status(200).send("Well");
