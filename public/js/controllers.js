@@ -14,8 +14,8 @@ app.controller('LogInCtrl', function($scope, $rootScope, $state, Login, $window,
     console.log($state.current.name);
 
     $scope.formData = {
-        email       :'',
-        password    :''
+        email       :'kennguyen@live.com',
+        password    :'456'
     };
 
     $scope.remember = false;
@@ -49,7 +49,6 @@ app.controller('LogInCtrl', function($scope, $rootScope, $state, Login, $window,
 
         }, function(err){
             console.log('DEBUG', err);
-            //@todo:Check Email Authentication
             if(err.data === 'failed'){
                 $scope.warning = "We can't find your account in the system";
             }
@@ -60,7 +59,7 @@ app.controller('LogInCtrl', function($scope, $rootScope, $state, Login, $window,
     };
 });
 
-app.controller('AuthorizationController', ['$scope', '$rootScope', '$window', 'lodash', '$state', '$timeout', function ($scope, $rootScope, $window, _, $state, $timeout) {
+app.controller('AuthorizationController',  function ($scope, $rootScope, $window, _, $state, $timeout) {
     //$scope.timeInMs = 0;
 
     var countUp = function() {
@@ -85,13 +84,21 @@ app.controller('AuthorizationController', ['$scope', '$rootScope', '$window', 'l
             $scope._user = JSON.parse($window.sessionStorage._user);
             $scope._isLoggedIn = true;
             console.log('Reassigned:', $scope._user);
+
+            var now = new Date();
+            var before = new Date($window.sessionStorage.loginTime);
+            var diff = now.getTime() - before.getTime();
+
+            if(diff/1000/60 > $window.sessionStorage.expire){
+                $scope.logout();
+                $state.go('signin');
+            }
         } else {
             console.log('DEBUG: Nothing in session store.');
         }
     };
 
     $scope.updateUser = function (data) {       //For log in
-                                                // Clone data to _user
         $scope._user = _.cloneDeep(data);
         // Store in session storage
         $window.sessionStorage._user = JSON.stringify(data);
@@ -111,6 +118,8 @@ app.controller('AuthorizationController', ['$scope', '$rootScope', '$window', 'l
         console.log('Logging user \'' + $scope._user.userName + '\' out.');
         delete $window.sessionStorage.token;
         delete $window.sessionStorage._user;
+        delete $window.sessionStorage.expire;
+        delete $window.sessionStorage.loginTime;
         $scope._isLoggedIn = false;
         $rootScope.timeInMs = -1;
     };
@@ -136,7 +145,6 @@ app.controller('AuthorizationController', ['$scope', '$rootScope', '$window', 'l
 
     $scope.$watch('timeInMs', function(){
         if($rootScope.timeInMs != null && $rootScope.timeInMs > -1){
-            console.log($window.sessionStorage.expire*1000*60);
             if($rootScope.timeInMs > $window.sessionStorage.expire*1000*60){
                 $scope.logout();
                 $('#sessionExpireModal').modal('show');
@@ -146,7 +154,7 @@ app.controller('AuthorizationController', ['$scope', '$rootScope', '$window', 'l
             }
         }
     });
-}]);
+});
 
 app.controller('LogOutCtrl', function($scope, $rootScope, $state){
     $scope.logout();
@@ -154,4 +162,8 @@ app.controller('LogOutCtrl', function($scope, $rootScope, $state){
     $('#successLogOutModal').on('hidden.bs.modal', function () {
         $state.go('signin');
     });
+});
+
+app.controller('ApolloCtrl', function($scope){
+    //@todo: test
 });
